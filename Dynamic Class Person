@@ -1,0 +1,144 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+class person{
+    protected:
+    int id;
+    char *name;
+    int age;
+    public:
+    person(){
+        id=0;
+        age=0;
+        name=new char[1];
+        strcpy(name,'\0');
+        cout<<"\nDefault constructor of class person";
+    }
+    person(int a, char *b, int c){
+        id=a;
+        name= new char[strlen(b)+1];
+        strcpy(name,b);
+        age=c;
+        cout<<"\nParameterised constructor of class person";
+    }
+    // virtual destructor
+    virtual ~person(){
+       delete []name;
+       cout<<"\nDestructor of class person";
+    }
+    virtual void talk()
+    {
+        cout<<"\nTalk of person is ...";
+    }
+    virtual void display()
+    {
+        cout<<"\nPerson ID: "<<id;
+        cout<<"\nPerson name: "<<name;
+        cout<<"\nPerson age: "<<age;
+    }
+};
+
+class teacher:public person{
+    protected:
+    char *subject;
+    public:
+    teacher(){
+        id=0;
+        age=0;
+        name= new char[1];
+        strcpy(name,'\0');
+        subject=new char[1];
+        strcpy(subject,'\0');
+        cout<<"\nDefault constructor of class teacher";
+    }
+    teacher(int a, char *b, int c, char* d):person(a,b,c){
+    	subject= new char[strlen(d)+1];
+        strcpy(subject,d);
+        cout<<"\nParameterised constructor of class teacher";
+    }
+    ~teacher(){
+       delete []name;
+       delete []subject;
+       cout<<"\nDestructor of class teacher";
+    }
+    void talk()
+    {
+        cout<<"\nTalk of Teacher is teaching";
+    }
+    void display()
+    {
+        cout<<"\nTeacher ID: "<<id;
+        cout<<"\nTeacher name: "<<name;
+        cout<<"\nTeacher age: "<<age;
+        cout<<"\nTeacher subject"<<subject;
+    }
+};
+
+class doctor:public person{
+    protected:
+    char *spec;
+    public:
+    doctor(){
+        id=0;
+        age=0;
+        name= new char[1];
+        strcpy(name,'\0');
+        spec= new char[1];
+        strcpy(spec,'\0');
+        cout<<"\nDefault constructor of class doctor";
+    }
+    doctor(int a, char *b, int c,char* d):person(a,b,c){
+    	spec= new char[strlen(d)+1];
+        strcpy(spec,d);
+        cout<<"\nParameterised constructor of class doctor";
+    }
+    ~doctor(){
+       delete []name;
+       delete []spec;
+       cout<<"\nDestructor of class doctor";
+    }
+    void talk()
+    {
+        cout<<"\nTalk of doctor is treating";
+    }
+    void display()
+    {
+        cout<<"\nDoctor ID: "<<id;
+        cout<<"\nDoctor name: "<<name;
+        cout<<"\nDoctor age: "<<age;
+        cout<<"\nDoctor specialization: "<<spec;
+    }
+};
+
+int main()
+{
+//    person *p;
+//    p=new teacher(543,"Janhavi",38,"C++");
+//    p->talk();
+//    p->display();
+//   
+//    doctor d1(675,"Samiksha",25,"Orthopedic");
+//    p=&d1;
+//    p->talk();
+//    p->display();
+
+    //array of pointers
+    int i;
+    person *ptr[5];
+    ptr[0]= new teacher(1,"sejal",34,"python");
+    ptr[1]= new teacher(2,"janhavi",19,"php");
+    ptr[2]= new person(3,"paresh",21);
+    ptr[3]= new doctor(4,"samiksha",76,"ortho");
+    ptr[4]= new doctor(5,"gauri",12,"neuro");
+    
+    for(i=0;i<5;i++){
+    	ptr[i]->display();
+    	cout<<"\n";
+	}
+	
+	for(i=0;i<5;i++){
+		delete ptr[i];
+	}
+    return 0;
+}
